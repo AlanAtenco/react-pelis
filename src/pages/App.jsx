@@ -8,8 +8,10 @@ import Inicio from './inicio.jsx';
 import Estreno from './estreno.jsx';
 import Caricatura from './caricatura.jsx';
 import Terror from './terror.jsx';
+import Imagenes from './imagenes.jsx';
 import RutasPrivadas from '../routes/RutasPrivadas.jsx';
 import RutasPublicas from '../routes/RutasPublicas.jsx';
+import Usuarios from '../pages/usuarios.jsx';
 
 
 
@@ -51,6 +53,16 @@ const App = () => {
         <Route path="/terror" element={
           <RutasPrivadas>
             <Terror />
+          </RutasPrivadas>
+        } />
+        <Route path="/archivos" element={
+          <RutasPrivadas>
+            <Imagenes />
+          </RutasPrivadas>
+        } />
+        <Route path="/usuarios" element={
+          <RutasPrivadas>
+            <Usuarios />
           </RutasPrivadas>
         } />
 

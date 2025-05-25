@@ -1,3 +1,4 @@
+// Nav.jsx (sin cambios adicionales necesarios, ya que el Contexto ahora proporciona el objeto correcto)
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaHome,
@@ -11,13 +12,17 @@ import { useContext } from "react";
 import Contexto from "../context/Contexto";
 
 const Nav = () => {
-  const { cerrar_sesion, logeado } = useContext(Contexto);
+  // Ahora usuarioLogeado será un objeto si el usuario está logeado
+  const { cerrar_sesion, logeado, usuario: usuarioLogeado } = useContext(Contexto);
   const navegacion = useNavigate();
 
   const finalizarSesion = () => {
     cerrar_sesion();
     navegacion("/login", { replace: true });
   };
+
+  // Esta condición ahora funcionará correctamente porque usuarioLogeado.rol será accesible
+  const esAdmin = usuarioLogeado && usuarioLogeado.rol === 'admin';
 
   return (
     <div className="navbar">
@@ -41,8 +46,17 @@ const Nav = () => {
             <NavLink to="/terror" className="nav-item">
               <FaUserPlus className="icon" /> Terror
             </NavLink>
+            <NavLink to="/archivos" className="nav-item">
+              <FaUserPlus className="icon" /> Imágenes
+            </NavLink>
+            
+            {/* Se renderizará solo si esAdmin es true */}
+            {esAdmin && (
+              <NavLink to="/usuarios" className="nav-item">
+                <FaUserPlus className="icon" /> Usuarios
+              </NavLink>
+            )}
 
-            {/* Botón estático para cerrar sesión */}
             <button className="nav-item logout-btn" onClick={finalizarSesion}>
               <FaSignOutAlt className="icon" /> Cerrar sesión
             </button>
